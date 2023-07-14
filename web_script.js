@@ -47,6 +47,7 @@ function loadSongList() {
 function displaySong() {
   const selectedCategory = categorySelect.value;
   const selectedSong = songSelect.value;
+  const songContent = document.getElementById("songContent");
 
   if (selectedCategory && selectedSong) {
     const filePath = `source/output/${selectedCategory}/${selectedSong}.txt`;
@@ -54,14 +55,21 @@ function displaySong() {
     fetch(filePath)
       .then(response => response.text())
       .then(data => {
-        const songContent = document.getElementById("songContent");
         songContent.innerHTML = `<pre>${data}</pre>`;
+        songContent.style.display = "block";
       })
       .catch(error => {
         console.log("Error loading song:", error);
       });
+  } else {
+    songContent.innerHTML = "";
+    songContent.style.display = "none";
   }
 }
+
+// Hide song content initially
+const songContent = document.getElementById("songContent");
+songContent.style.display = "none";
 
   categorySelect.addEventListener("change", loadSongList);
   songSelect.addEventListener("change", displaySong);
