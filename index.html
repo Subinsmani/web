@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Song List</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Song List</h1>
+  <div class="dropdown">
+    <label for="category">Select Category:</label>
+    <select id="category">
+      <option value="" selected disabled>Select a category</option>
+      <option value="English">English</option>
+      <option value="Sunday School">Sunday School</option>
+      <option value="Hindi">Hindi</option>
+      <option value="Malayalam">Malayalam</option>
+    </select>
+  </div>
+  <div class="dropdown">
+    <label for="song">Select Song:</label>
+    <select id="song"></select>
+  </div>
+  <div id="songContent"></div>
+
+  <script src="web_script.js"></script>
+</body>
+</html>
