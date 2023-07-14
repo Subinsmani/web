@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
           const songList = data.split("\n");
 
-          // Exclude the first three lines
-          const filteredSongList = songList.slice(3);
+          // Remove the first three lines and songs with "_english"
+          const filteredSongList = songList.slice(3).filter(song => !song.includes("_english"));
 
           // Clear the previous options
           songSelect.innerHTML = "";
