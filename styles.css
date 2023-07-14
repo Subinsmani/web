@@ -20,7 +20,7 @@ select {
   padding: 5px;
 }
 
-.song-container {
+#songContent {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -28,10 +28,18 @@ select {
 
 #songContentLeft,
 #songContentRight {
-  flex-basis: 45%;
+  flex: 1;
   padding: 10px;
   background-color: #f0f0f0;
   font-family: Arial, sans-serif;
   font-size: 14px;
   white-space: pre-wrap;
+}
+
+#songContentLeft {
+  margin-right: 10px;
+}
+
+#songContentRight {
+  margin-left: 10px;
 }

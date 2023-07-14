@@ -54,24 +54,40 @@ document.addEventListener("DOMContentLoaded", () => {
       const filePath = `source/output/${selectedCategory}/${selectedSong}.txt`;
       const filePathEnglish = `source/output/${selectedCategory}/${selectedSong}_english.txt`;
 
+      // Check if the song file exists
       fetch(filePath)
-        .then(response => response.text())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Song not available");
+          }
+          return response.text();
+        })
         .then(data => {
           songContentLeft.innerHTML = `<pre>${data}</pre>`;
           songContentLeft.style.display = "block";
         })
         .catch(error => {
           console.log("Error loading song:", error);
+          songContentLeft.innerHTML = "<p>Song not available</p>";
+          songContentLeft.style.display = "block";
         });
 
+      // Check if the English song file exists
       fetch(filePathEnglish)
-        .then(response => response.text())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("English lyrics not available");
+          }
+          return response.text();
+        })
         .then(data => {
           songContentRight.innerHTML = `<pre>${data}</pre>`;
           songContentRight.style.display = "block";
         })
         .catch(error => {
-          console.log("Error loading English song:", error);
+          console.log("Error loading English song lyrics:", error);
+          songContentRight.innerHTML = "<p>English lyrics not available</p>";
+          songContentRight.style.display = "block";
         });
     } else {
       songContentLeft.innerHTML = "";
