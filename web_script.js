@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function loadSongList() {
   const selectedCategory = categorySelect.value;
+  const songSelectContainer = document.getElementById("songSelectContainer");
+  const songLabel = document.getElementById("songLabel");
+  const songSelect = document.getElementById("song");
 
   if (selectedCategory) {
     fetch(`source/list/${selectedCategory}.txt`)
@@ -26,10 +29,18 @@ function loadSongList() {
             songSelect.appendChild(option);
           }
         });
+
+        // Show the song select container
+        songSelectContainer.style.display = "block";
+        songLabel.style.visibility = "visible";
       })
       .catch(error => {
         console.log("Error loading song list:", error);
       });
+  } else {
+    // Hide the song select container if no category is selected
+    songSelectContainer.style.display = "none";
+    songLabel.style.visibility = "hidden";
   }
 }
 

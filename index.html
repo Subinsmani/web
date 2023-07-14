@@ -17,9 +17,9 @@
       <option value="Malayalam">Malayalam</option>
     </select>
   </div>
-  <div class="dropdown">
-    <label for="song">Select Song:</label>
-    <select id="song"></select>
+  <div class="dropdown" id="songSelectContainer" style="display: none;">
+    <label id="songLabel" for="song">Select Song:</label>
+    <select id="song" onchange="displaySong()"></select>
   </div>
   <div id="songContent"></div>
 
