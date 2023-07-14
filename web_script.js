@@ -2,33 +2,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const categorySelect = document.getElementById("category");
   const songSelect = document.getElementById("song");
 
-  function loadSongList() {
-    const selectedCategory = categorySelect.value;
+function loadSongList() {
+  const selectedCategory = categorySelect.value;
 
-    if (selectedCategory) {
-      fetch(`source/list/${selectedCategory}.txt`)
-        .then(response => response.text())
-        .then(data => {
-          const songList = data.split("\n");
+  if (selectedCategory) {
+    fetch(`source/list/${selectedCategory}.txt`)
+      .then(response => response.text())
+      .then(data => {
+        const songList = data.split("\n");
 
-          // Clear the previous options
-          songSelect.innerHTML = "";
+        // Exclude the first three lines
+        const filteredSongList = songList.slice(3);
 
-          // Create and add new options
-          songList.forEach(song => {
-            if (song.trim() !== "") {
-              const option = document.createElement("option");
-              option.value = song.trim();
-              option.text = song.trim();
-              songSelect.appendChild(option);
-            }
-          });
-        })
-        .catch(error => {
-          console.log("Error loading song list:", error);
+        // Clear the previous options
+        songSelect.innerHTML = "";
+
+        // Create and add new options
+        filteredSongList.forEach(song => {
+          if (song.trim() !== "") {
+            const option = document.createElement("option");
+            option.value = song.trim();
+            option.text = song.trim();
+            songSelect.appendChild(option);
+          }
         });
-    }
+      })
+      .catch(error => {
+        console.log("Error loading song list:", error);
+      });
   }
+}
 
 function displaySong() {
   const selectedCategory = categorySelect.value;
