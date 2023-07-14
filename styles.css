@@ -21,9 +21,9 @@ select {
 }
 
 .song-content-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 20px; /* Adjust the gap as per your preference */
   margin-top: 20px;
 }
 
@@ -34,9 +34,4 @@ select {
   font-family: Arial, sans-serif;
   font-size: 14px;
   white-space: pre-wrap;
-  flex: 1;
-}
-
-#songContentLeft {
-  margin-right: 10px;
 }
