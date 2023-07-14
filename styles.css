@@ -20,26 +20,23 @@ select {
   padding: 5px;
 }
 
-#songContent {
+.song-content-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   margin-top: 20px;
 }
 
 #songContentLeft,
 #songContentRight {
-  flex: 1;
   padding: 10px;
   background-color: #f0f0f0;
   font-family: Arial, sans-serif;
   font-size: 14px;
   white-space: pre-wrap;
+  flex: 1;
 }
 
 #songContentLeft {
   margin-right: 10px;
-}
-
-#songContentRight {
-  margin-left: 10px;
 }

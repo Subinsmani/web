@@ -85,9 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
           songContentRight.style.display = "block";
         })
         .catch(error => {
-          console.log("Error loading English song lyrics:", error);
-          songContentRight.innerHTML = "<p>English lyrics not available</p>";
-          songContentRight.style.display = "block";
+          console.log("English lyrics not available");
+          songContentRight.style.display = "none";
         });
     } else {
       songContentLeft.innerHTML = "";
