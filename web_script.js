@@ -47,29 +47,45 @@ document.addEventListener("DOMContentLoaded", () => {
   function displaySong() {
     const selectedCategory = categorySelect.value;
     const selectedSong = songSelect.value;
-    const songContent = document.getElementById("songContent");
+    const songContentLeft = document.getElementById("songContentLeft");
+    const songContentRight = document.getElementById("songContentRight");
 
     if (selectedCategory && selectedSong) {
       const filePath = `source/output/${selectedCategory}/${selectedSong}.txt`;
+      const filePathEnglish = `source/output/${selectedCategory}/${selectedSong}_english.txt`;
 
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
-          songContent.innerHTML = `<pre>${data}</pre>`;
-          songContent.style.display = "block";
+          songContentLeft.innerHTML = `<pre>${data}</pre>`;
+          songContentLeft.style.display = "block";
         })
         .catch(error => {
           console.log("Error loading song:", error);
         });
+
+      fetch(filePathEnglish)
+        .then(response => response.text())
+        .then(data => {
+          songContentRight.innerHTML = `<pre>${data}</pre>`;
+          songContentRight.style.display = "block";
+        })
+        .catch(error => {
+          console.log("Error loading English song:", error);
+        });
     } else {
-      songContent.innerHTML = "";
-      songContent.style.display = "none";
+      songContentLeft.innerHTML = "";
+      songContentRight.innerHTML = "";
+      songContentLeft.style.display = "none";
+      songContentRight.style.display = "none";
     }
   }
 
   // Hide song content initially
-  const songContent = document.getElementById("songContent");
-  songContent.style.display = "none";
+  const songContentLeft = document.getElementById("songContentLeft");
+  const songContentRight = document.getElementById("songContentRight");
+  songContentLeft.style.display = "none";
+  songContentRight.style.display = "none";
 
   categorySelect.addEventListener("change", loadSongList);
   songSelect.addEventListener("change", displaySong);
