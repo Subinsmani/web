@@ -36,8 +36,12 @@ select {
   white-space: pre-wrap;
 }
 
-/* Styles for the PPTX download button */
-#downloadButton {
+.pptx-container {
+  margin-top: 20px;
+}
+
+#downloadButtonRegular,
+#downloadButtonEnglish {
   display: none;
   margin-top: 10px;
   padding: 8px 16px;
@@ -47,6 +51,7 @@ select {
   border-radius: 5px;
 }
 
-#downloadButton:hover {
+#downloadButtonRegular:hover,
+#downloadButtonEnglish:hover {
   background-color: #0056b3;
 }

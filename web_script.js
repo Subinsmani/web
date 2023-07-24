@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const categorySelect = document.getElementById("category");
   const songSelect = document.getElementById("song");
   const pptxContainer = document.getElementById("pptxContainer");
-  const downloadButton = document.getElementById("downloadButton");
+  const downloadButtonRegular = document.getElementById("downloadButtonRegular");
+  const downloadButtonEnglish = document.getElementById("downloadButtonEnglish");
 
   function loadSongList() {
     const selectedCategory = categorySelect.value;
@@ -90,61 +91,59 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("English lyrics not available");
           songContentRight.style.display = "none";
         });
+
+      // Show the download buttons if the corresponding PPTX files exist
+      const pptxFilePathRegular = `source/PTOutput/${selectedCategory}/${selectedSong}.pptx`;
+      const pptxFilePathEnglish = `source/PTOutput/${selectedCategory}/${selectedSong}_english.pptx`;
+
+      downloadButtonRegular.style.display = "none";
+      downloadButtonEnglish.style.display = "none";
+
+      fetch(pptxFilePathRegular)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Regular PPTX file not available");
+          }
+          downloadButtonRegular.style.display = "inline-block";
+          downloadButtonRegular.href = pptxFilePathRegular;
+          downloadButtonRegular.download = `${selectedSong}.pptx`;
+        })
+        .catch(error => {
+          console.log("Regular PPTX file not available:", error);
+          downloadButtonRegular.style.display = "none";
+        });
+
+      fetch(pptxFilePathEnglish)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("English PPTX file not available");
+          }
+          downloadButtonEnglish.style.display = "inline-block";
+          downloadButtonEnglish.href = pptxFilePathEnglish;
+          downloadButtonEnglish.download = `${selectedSong}_english.pptx`;
+        })
+        .catch(error => {
+          console.log("English PPTX file not available:", error);
+          downloadButtonEnglish.style.display = "none";
+        });
     } else {
       songContentLeft.innerHTML = "";
       songContentRight.innerHTML = "";
       songContentLeft.style.display = "none";
       songContentRight.style.display = "none";
+      downloadButtonRegular.style.display = "none";
+      downloadButtonEnglish.style.display = "none";
     }
   }
 
-  function displayPPTX() {
-    const selectedCategory = categorySelect.value;
-    const selectedSong = songSelect.value;
-
-    if (selectedCategory && selectedSong) {
-      const pptxFilePath = `source/PTOutput/${selectedCategory}/${selectedSong}.pptx`;
-
-      // Check if the PPTX file exists
-      fetch(pptxFilePath)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("PPTX file not available");
-          }
-          return response.blob();
-        })
-        .then(blob => {
-          // Create a URL for the blob object
-          const pptxUrl = URL.createObjectURL(blob);
-
-          // Enable the download button
-          downloadButton.href = pptxUrl;
-          downloadButton.download = `${selectedSong}.pptx`;
-          downloadButton.style.display = "inline-block";
-
-          // Hide the PPTX container
-          pptxContainer.style.display = "none";
-        })
-        .catch(error => {
-          console.log("Error loading PPTX file:", error);
-          pptxContainer.style.display = "block";
-          downloadButton.style.display = "none";
-        });
-    } else {
-      // Hide the PPTX container and download button if no song is selected
-      pptxContainer.style.display = "none";
-      downloadButton.style.display = "none";
-    }
-  }
-
-  // Hide song content and PPTX container initially
+  // Hide song content and PPTX download buttons initially
   const songContentLeft = document.getElementById("songContentLeft");
   const songContentRight = document.getElementById("songContentRight");
   songContentLeft.style.display = "none";
   songContentRight.style.display = "none";
-  pptxContainer.style.display = "none";
+  downloadButtonRegular.style.display = "none";
+  downloadButtonEnglish.style.display = "none";
 
   categorySelect.addEventListener("change", loadSongList);
   songSelect.addEventListener("change", displaySong);
-  songSelect.addEventListener("change", displayPPTX);
 });
